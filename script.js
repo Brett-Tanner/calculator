@@ -8,14 +8,19 @@ const clear = document.querySelector("#clear");
 let displayContent = 0;
 let operator = null;
 
+
+
+
+// TODO: Also accept keyboard input
+
+
+
+
+
+
 // add number event listeners
 for (let i = 0, length = inputButton.length; i < length; i++) {
     inputButton[i].addEventListener("click", addDisplay)};
-
-// add correction event listeners
-backspace.addEventListener("click", function(e) {
-    console.log(e.target.id);
-});
 
 // use to update the display
 function addDisplay(e) {
@@ -44,7 +49,32 @@ function addDisplay(e) {
     }
 };
 
-// get values from display
+// add clear event listener
+clear.addEventListener("click", () => {
+    displayContent = 0;
+    operator = null;
+    display.textContent = 0;
+})
+
+// add backspace event listener
+backspace.addEventListener("click", function() {
+    if (displayContent.length === 1) {
+        displayContent = 0;
+        display.textContent = displayContent;
+        return;
+    }
+    const lastIndex = displayContent.length - 1;
+    displayContent = displayContent.slice(0, lastIndex);
+    display.textContent = displayContent;
+});
+
+
+
+// TODO: perform operation when = button clicked
+
+
+
+// get values from display when called by = button
 function operate(a, b, operator) {
     switch (operator) {
         case "&#x2B":
