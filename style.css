@@ -52,6 +52,18 @@ button:active {
 #buttons {
     min-width: 80%;
     min-height: 70%;
+    display: flex;
+}
+
+#numbers {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+#numbers button {
+    flex-basis: 30%;
+    margin-bottom: 3%;
 }
 
 #numbers button:hover {
@@ -59,18 +71,34 @@ button:active {
     color: white;
 }
 
-#correction button {
+#options {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+#options button {
+    margin-bottom: 3%;
+}
+
+#clear, #equals {
+    flex-basis: 90%;
+}
+
+.correction {
     background-color: lightcoral;
 }
 
-#correction button:hover {
+.correction:hover, #numbers button.correction:hover {
     background-color: rgb(254, 84, 84);
+    color: black;
 }
 
-#operators button {
+.operators {
     background-color: lightsalmon;
+    flex-basis: 40%;
 }
 
-#operators button:hover {
+.operators:hover {
     background-color: orange;
 }
