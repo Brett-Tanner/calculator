@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <script href="./script.js"></script>
     <title>Calculator</title>
 </head>
@@ -14,30 +17,32 @@
     </div>
     <div id="mainDiv">
         <div id="calcFrame">
-            <div id="display"></div>
-            <div id="numbers">
-                <button id="1" type="button">1</button>
-                <button id="2" type="button">2</button>
-                <button id="3" type="button">3</button>
-                <button id="4" type="button">4</button>
-                <button id="5" type="button">5</button>
-                <button id="6" type="button">6</button>
-                <button id="7" type="button">7</button>
-                <button id="8" type="button">8</button>
-                <button id="9" type="button">9</button>
-                <button id="10" type="button">0</button>
-                <button id="." type="button">.</button>
-            </div>
-            <div id="correction">
-                <button id="clear" type="button">Clear</button>
-                <button id="backspace" type="button">Backspace</button>
-            </div>
-            <div id="operators">
-                <button id="+" type="button">+</button>
-                <button id="-" type="button">-</button>
-                <button id="*" type="button">&#215</button>
-                <button id="/" type="button">&divide</button>
-                <button id="=" type="button">=</button>
+            <div id="display">0</div>
+            <div id="buttons">
+                <div id="numbers">
+                    <button id="1" type="button">1</button>
+                    <button id="2" type="button">2</button>
+                    <button id="3" type="button">3</button>
+                    <button id="4" type="button">4</button>
+                    <button id="5" type="button">5</button>
+                    <button id="6" type="button">6</button>
+                    <button id="7" type="button">7</button>
+                    <button id="8" type="button">8</button>
+                    <button id="9" type="button">9</button>
+                    <button id="10" type="button">0</button>
+                    <button id="." type="button">.</button>
+                </div>
+                <div id="correction">
+                    <button id="clear" type="button">Clear</button>
+                    <button id="backspace" type="button">Backspace</button>
+                </div>
+                <div id="operators">
+                    <button id="+" type="button">&#x2B</button>
+                    <button id="-" type="button">&#8722</button>
+                    <button id="*" type="button">&#215</button>
+                    <button id="/" type="button">&divide</button>
+                    <button id="=" type="button">=</button>
+                </div>
             </div>
         </div>
     </div>
