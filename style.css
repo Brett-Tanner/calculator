@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Inconsolata', monospace;
+}
+
+body {
+    display: flex;
+    min-height: 100%;
+    margin: 0;
+    flex-flow: column nowrap;
+    background-color: lightgrey;
+}
+
+button {
+    border: 2px outset;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+button:active {
+    border: 2px inset;
+}
+
+#mainDiv {
+    padding: 20px 10%;
+}
+
+#calcFrame {
+    border: 4px outset;
+    padding: 10px;
+    background-color: rgb(177, 177, 177);
+}
+
+#numbers button:hover {
+    background-color: darkgrey;
+    color: white;
+}
+
+#correction button {
+    background-color: lightcoral;
+}
+
+#correction button:hover {
+    background-color: rgb(255, 62, 62);
+}
+
+#operators button {
+    background-color: lightsalmon;
+}
+
+#operators button:hover {
+    background-color: orange;
+}
