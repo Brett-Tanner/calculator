@@ -4,9 +4,11 @@ const inputButton = Array.from(document.querySelectorAll(".numButton, .operators
 const backspace = document.querySelector("#backspace");
 const clear = document.querySelector("#clear");
 
-// initialize displayContent and operator
+// initialize global variables
 let displayContent = 0;
 let operator = null;
+let num1 = null;
+let num2 = null;
 
 
 
@@ -31,8 +33,12 @@ function addDisplay(e) {
         if (operator !== null || display.textContent == 0) {
             return;
         }
+        // update display and relevant variables
         else {
             operator = input;
+            if (num1 === null) {
+                num1 = displayContent;
+            }
             displayContent += input;
             display.textContent += input;
             return;
@@ -43,35 +49,51 @@ function addDisplay(e) {
         displayContent = input;
         display.textContent = displayContent;
     }
+    // update if just a number
     else {
         displayContent += input;
         display.textContent = displayContent;
     }
 };
 
-// add clear event listener
+// reset everything when clear button clicked
 clear.addEventListener("click", () => {
     displayContent = 0;
     operator = null;
     display.textContent = 0;
+    num1 = null;
+    num2 = null;
 })
 
-// add backspace event listener
+// remove last input when backspace clicked
 backspace.addEventListener("click", function() {
+    // make sure you display 0 rather than empty box
     if (displayContent.length === 1) {
         displayContent = 0;
         display.textContent = displayContent;
         return;
     }
     const lastIndex = displayContent.length - 1;
+    // zero out relevant variables if you delete an operator
+    if (displayContent[lastIndex] === "+" || displayContent[lastIndex] === "\u2212" || displayContent[lastIndex] === "\u00f7" || displayContent[lastIndex] === "\u00d7") {
+        operator = null;
+        num1 = null;
+    }
+    // remove the last char
     displayContent = displayContent.slice(0, lastIndex);
     display.textContent = displayContent;
 });
 
 
 
-// TODO: perform operation when = button clicked
+// TODO: add = event listener
+// will prob need to convert back to numbers but who knows with js
 
+// This should get num2 but you'll need to test it
+// const operatorIndex = displayContent.search(/\p{MathSymbol}/);
+// console.log(operatorIndex);
+// num2 = displayContent.slice(operatorIndex + 1);
+// console.log(num2);
 
 
 // get values from display when called by = button

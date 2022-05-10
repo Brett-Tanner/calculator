@@ -53,6 +53,7 @@ button:active {
     min-width: 80%;
     min-height: 70%;
     display: flex;
+    justify-content: space-around;
 }
 
 #numbers {
