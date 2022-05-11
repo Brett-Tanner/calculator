@@ -14,34 +14,30 @@ let num2 = null;
 
 
 // TODO: Also accept keyboard input
-// for numbers
+// for numbers and operators
 document.addEventListener("keydown", (e) => {
-    const input = e.key;
-    if (!(input >= 0 && input < 10)) {
-        return;
-    };
-    addDisplay(input);
-});
-
-// for operators
-document.addEventListener("keydown", (e) => {
-    const input = e.key;
+    let input = e.key;
+    // convert keyboard inputs to operators
     switch (input) {
-        case "+":
-            
-            break;
         case "-":
-
+            input = "\u2212";
+            break;
         case "/":
-
+            input = "\u00f7";
+            break;
         case "*":
-
+            input = "\u00d7";
         default:
             break;
-        }
-    return;
+    };
+    // filter anything that's not a number or operator
+    if ((input >= 0 && input < 10) || input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7") {
+        addDisplay(input);
     }
-);
+    else {
+        return;
+    };
+});
 
 // for clear
 
