@@ -11,13 +11,11 @@ let num1 = null;
 let num2 = null;
 
 
-
-
-// TODO: Also accept keyboard input
-// for numbers and operators
+// Accept keyboard input TODO: for equals
 document.addEventListener("keydown", (e) => {
     let input = e.key;
-    // convert keyboard inputs to operators
+    console.log(input);
+    // convert keyboard inputs to operators and check for backspace/clear
     switch (input) {
         case "-":
             input = "\u2212";
@@ -27,6 +25,12 @@ document.addEventListener("keydown", (e) => {
             break;
         case "*":
             input = "\u00d7";
+        case "Delete":
+            clearButton();
+            break;
+        case "Backspace":
+            backspaceButton();
+            break;
         default:
             break;
     };
@@ -38,16 +42,6 @@ document.addEventListener("keydown", (e) => {
         return;
     };
 });
-
-// for clear
-
-
-// for backspace
-
-
-// for equals
-
-
 
 // add number and operator event listeners
 for (let i = 0, length = inputButton.length; i < length; i++) {
@@ -89,36 +83,14 @@ function addDisplay(input) {
 };
 
 // reset everything when clear button clicked
-clear.addEventListener("click", () => {
-    displayContent = 0;
-    operator = null;
-    display.textContent = 0;
-    num1 = null;
-    num2 = null;
-})
+clear.addEventListener("click", clearButton);
 
 // remove last input when backspace clicked
-backspace.addEventListener("click", function() {
-    // make sure you display 0 rather than empty box
-    if (displayContent.length === 1) {
-        displayContent = 0;
-        display.textContent = displayContent;
-        return;
-    }
-    const lastIndex = displayContent.length - 1;
-    // zero out relevant variables if you delete an operator
-    if (displayContent[lastIndex] === "+" || displayContent[lastIndex] === "\u2212" || displayContent[lastIndex] === "\u00f7" || displayContent[lastIndex] === "\u00d7") {
-        operator = null;
-        num1 = null;
-    }
-    // remove the last char
-    displayContent = displayContent.slice(0, lastIndex);
-    display.textContent = displayContent;
-});
+backspace.addEventListener("click", backspaceButton);
 
 
 
-// TODO: add = event listener
+// TODO: add = (result) event listener
 // will prob need to convert back to numbers but who knows with js
 
 // This should get num2 but you'll need to test it
@@ -128,20 +100,23 @@ backspace.addEventListener("click", function() {
 // console.log(num2);
 
 
+// FUNCTIONS BELOW HERE
+
+
 // get values from display when called by = button
-function operate(a, b, operator) {
+function operate(num1, num2, operator) {
     switch (operator) {
-        case "&#x2B":
-            add(a, b);
+        case "+":
+            add(num1, num2);
             break;
-        case "&#8722":
-            subtract(a, b);
+        case "\u2212":
+            subtract(num1, num2);
             break;
-        case "&#215":
-            multiply(a, b);
+        case "\u00f7":
+            multiply(num1, num2);
             break;
-        case "&divide":
-            divide(a, b);
+        case "\u00d7":
+            divide(num1, num2);
             break;
     };
 };
@@ -162,3 +137,29 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b;
 }
+
+function clearButton() {
+        displayContent = 0;
+        operator = null;
+        display.textContent = 0;
+        num1 = null;
+        num2 = null;
+};
+
+function backspaceButton() {
+    // make sure you display 0 rather than empty box
+    if (displayContent.length === 1) {
+        displayContent = 0;
+        display.textContent = displayContent;
+        return;
+    }
+    const lastIndex = displayContent.length - 1;
+    // zero out relevant variables if you delete an operator
+    if (displayContent[lastIndex] === "+" || displayContent[lastIndex] === "\u2212" || displayContent[lastIndex] === "\u00f7" || displayContent[lastIndex] === "\u00d7") {
+        operator = null;
+        num1 = null;
+    }
+    // remove the last char
+    displayContent = displayContent.slice(0, lastIndex);
+    display.textContent = displayContent;
+};

@@ -35,6 +35,7 @@ button:active {
 #calcFrame {
     border: 4px outset;
     padding: 10%;
+    max-height: 99vh;
     background-color: rgb(177, 177, 177);
 }
 
