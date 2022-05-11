@@ -14,19 +14,55 @@ let num2 = null;
 
 
 // TODO: Also accept keyboard input
+// for numbers
+document.addEventListener("keydown", (e) => {
+    const input = e.key;
+    if (!(input >= 0 && input < 10)) {
+        return;
+    };
+    addDisplay(input);
+});
+
+// for operators
+document.addEventListener("keydown", (e) => {
+    const input = e.key;
+    switch (input) {
+        case "+":
+            
+            break;
+        case "-":
+
+        case "/":
+
+        case "*":
+
+        default:
+            break;
+        }
+    return;
+    }
+);
+
+// for clear
+
+
+// for backspace
+
+
+// for equals
 
 
 
-
-
-
-// add number event listeners
+// add number and operator event listeners
 for (let i = 0, length = inputButton.length; i < length; i++) {
-    inputButton[i].addEventListener("click", addDisplay)};
+    inputButton[i].addEventListener("click", (e) => {
+        const input = e.target.textContent;
+        addDisplay(input);
+    });
+};
 
 // use to update the display
-function addDisplay(e) {
-    const input = e.target.textContent;
+function addDisplay(input) {
     // check if it's an operator
     if (input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7") {
         // prevent input if already used operator
