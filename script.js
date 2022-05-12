@@ -1,3 +1,5 @@
+// FIXME: weird things happen on subsequent operations
+
 // get elements
 const display = document.querySelector("#display");
 const inputButton = Array.from(document.querySelectorAll(".numButton, .operators"));
@@ -10,6 +12,11 @@ let displayContent = 0;
 let operator = null;
 let num1 = null;
 let num2 = null;
+
+
+
+// EVENT LISTENERS
+
 
 
 // Accept keyboard input
@@ -26,6 +33,7 @@ document.addEventListener("keydown", (e) => {
             break;
         case "*":
             input = "\u00d7";
+            break;
         case "Delete":
             clearButton();
             break;
@@ -34,13 +42,19 @@ document.addEventListener("keydown", (e) => {
             break;
         case "Enter":
             getNum2();
-            operate(num1, num2, operator);
-            break;
+            if ((num2 == 0 && operator === "\u00f7") || num2 === null) {
+                alert("Second operator must be a valid number");
+                break;
+            } 
+            else {
+                operate(num1, num2, operator);
+                break;
+            }
         default:
             break;
     };
     // filter anything that's not a number or operator
-    if ((input >= 0 && input < 10) || input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7") {
+    if ((input >= 0 && input < 10) || input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7" || input === ".") {
         addDisplay(input);
     }
     else {
@@ -67,27 +81,22 @@ backspace.addEventListener("click", backspaceButton);
 equals.addEventListener("click", () => {
     getNum2();
     operate(num1, num2, operator);
-});
+    }
+);
 
 
 
 
-// FUNCTIONS BELOW HERE
+// FUNCTIONS 
 
 
-// FIXME: weird things happen on subsequent operations
-// Typing * clears the display
+
 
 
 // Get num2 by slicing from index of operator
 function getNum2() {    
     const operatorIndex = num1.length;
-    console.log(operatorIndex);
     num2 = displayContent.slice(operatorIndex + 1);
-    if (num2 === 0 || num2 === null) {
-        alert("No dividing by 0!");
-        return;
-    }
 };
 
 
@@ -97,19 +106,19 @@ function operate(num1, num2, operator) {
     num2 = parseFloat(num2);
     switch (operator) {
         case "+":
-            result = add(num1, num2);
+            result = add(num1, num2).toFixed(2);
             displayResult();
             break;
         case "\u2212":
-            result = subtract(num1, num2);
+            result = subtract(num1, num2).toFixed(2);
             displayResult();
             break;
         case "\u00f7":
-            result = divide(num1, num2);
+            result = divide(num1, num2).toFixed(2);
             displayResult();
             break;
         case "\u00d7":
-            result = multiply(num1, num2);
+            result = multiply(num1, num2).toFixed(2);
             displayResult();
             break;
     };
