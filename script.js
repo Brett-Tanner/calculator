@@ -8,6 +8,7 @@ const calcFrame = document.querySelector("#calcFrame");
 
 // initialize global variables
 let displayContent = 0;
+let decimalCounter = 0;
 let operator = null;
 let num1 = null;
 let num2 = null;
@@ -31,6 +32,13 @@ document.addEventListener("keydown", (e) => {
             break;
         case "*":
             input = "\u00d7";
+            break;
+        case ".":
+            // make sure you're only using one decimal
+            if (decimalCounter > 0) {
+                return;
+            }
+            decimalCounter++;
             break;
         case "Delete":
             clearButton();
@@ -195,6 +203,7 @@ function addDisplay(input) {
         else {
             operator = input;
             num1 = displayContent;
+            decimalCounter = 0;
             displayContent += input;
             display.textContent += input;
             return;
