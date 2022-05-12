@@ -22,7 +22,6 @@ let num2 = null;
 // Accept keyboard input
 document.addEventListener("keydown", (e) => {
     let input = e.key;
-    console.log(input);
     // convert keyboard inputs to operators and check for backspace/clear
     switch (input) {
         case "-":
@@ -106,28 +105,33 @@ function operate(num1, num2, operator) {
     num2 = parseFloat(num2);
     switch (operator) {
         case "+":
-            result = add(num1, num2).toFixed(2);
+            result = add(num1, num2);
             displayResult();
             break;
         case "\u2212":
-            result = subtract(num1, num2).toFixed(2);
+            result = subtract(num1, num2);
             displayResult();
             break;
         case "\u00f7":
-            result = divide(num1, num2).toFixed(2);
+            result = divide(num1, num2);
             displayResult();
             break;
         case "\u00d7":
-            result = multiply(num1, num2).toFixed(2);
+            result = multiply(num1, num2);
             displayResult();
             break;
     };
 };
 
 function displayResult() {
-    console.log(result);
-    displayContent = result;
-    display.textContent = result;
+    if (Number.isInteger(result)) {
+        displayContent = result.toFixed(0);
+        display.textContent = result.toFixed(0);
+    }
+    else {
+        displayContent = result.toFixed(2);
+        display.textContent = result.toFixed(2);
+    }
     num1 = result;
     num2 = null;
     operator = null;
