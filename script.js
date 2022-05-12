@@ -3,6 +3,7 @@ const display = document.querySelector("#display");
 const inputButton = Array.from(document.querySelectorAll(".numButton, .operators"));
 const backspace = document.querySelector("#backspace");
 const clear = document.querySelector("#clear");
+const equals = document.querySelector("#equals");
 
 // initialize global variables
 let displayContent = 0;
@@ -11,7 +12,7 @@ let num1 = null;
 let num2 = null;
 
 
-// Accept keyboard input TODO: for equals
+// Accept keyboard input
 document.addEventListener("keydown", (e) => {
     let input = e.key;
     console.log(input);
@@ -30,6 +31,10 @@ document.addEventListener("keydown", (e) => {
             break;
         case "Backspace":
             backspaceButton();
+            break;
+        case "Enter":
+            getNum2();
+            operate(num1, num2, operator);
             break;
         default:
             break;
@@ -51,12 +56,125 @@ for (let i = 0, length = inputButton.length; i < length; i++) {
     });
 };
 
+
+// reset everything when clear button clicked
+clear.addEventListener("click", clearButton);
+
+// remove last input when backspace clicked
+backspace.addEventListener("click", backspaceButton);
+
+// do math when = is clicked
+equals.addEventListener("click", () => {
+    getNum2();
+    operate(num1, num2, operator);
+});
+
+
+
+
+// FUNCTIONS BELOW HERE
+
+
+// FIXME: weird things happen on subsequent operations
+// Typing * clears the display
+
+
+// Get num2 by slicing from index of operator
+function getNum2() {    
+    const operatorIndex = num1.length;
+    console.log(operatorIndex);
+    num2 = displayContent.slice(operatorIndex + 1);
+    if (num2 === 0 || num2 === null) {
+        alert("No dividing by 0!");
+        return;
+    }
+};
+
+
+// call correct function when called by = button
+function operate(num1, num2, operator) {
+    num1 = parseFloat(num1);
+    num2 = parseFloat(num2);
+    switch (operator) {
+        case "+":
+            result = add(num1, num2);
+            displayResult();
+            break;
+        case "\u2212":
+            result = subtract(num1, num2);
+            displayResult();
+            break;
+        case "\u00f7":
+            result = divide(num1, num2);
+            displayResult();
+            break;
+        case "\u00d7":
+            result = multiply(num1, num2);
+            displayResult();
+            break;
+    };
+};
+
+function displayResult() {
+    console.log(result);
+    displayContent = result;
+    display.textContent = result;
+    num1 = result;
+    num2 = null;
+    operator = null;
+};
+
+// operator functions
+function add(a, b) {
+    return a + b;
+};
+
+function subtract(a, b) {
+    return a - b;
+};
+
+function multiply(a, b) {
+    return a * b;
+};
+
+function divide(a, b) {
+    return a / b;
+}
+
+// delete everything
+function clearButton() {
+        displayContent = 0;
+        operator = null;
+        display.textContent = 0;
+        num1 = null;
+        num2 = null;
+};
+
+// delete one character at a time
+function backspaceButton() {
+    // make sure you display 0 rather than empty box
+    if (displayContent.length === 1) {
+        displayContent = 0;
+        display.textContent = displayContent;
+        return;
+    }
+    const lastIndex = displayContent.length - 1;
+    // zero out relevant variables if you delete an operator
+    if (displayContent[lastIndex] === "+" || displayContent[lastIndex] === "\u2212" || displayContent[lastIndex] === "\u00f7" || displayContent[lastIndex] === "\u00d7") {
+        operator = null;
+        num1 = null;
+    }
+    // remove the last char
+    displayContent = displayContent.slice(0, lastIndex);
+    display.textContent = displayContent;
+};
+
 // use to update the display
 function addDisplay(input) {
     // check if it's an operator
     if (input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7") {
-        // prevent input if already used operator
-        if (operator !== null || display.textContent == 0) {
+        // prevent input if already used operator or no num1
+        if (operator !== null || displayContent == 0) {
             return;
         }
         // update display and relevant variables
@@ -80,86 +198,4 @@ function addDisplay(input) {
         displayContent += input;
         display.textContent = displayContent;
     }
-};
-
-// reset everything when clear button clicked
-clear.addEventListener("click", clearButton);
-
-// remove last input when backspace clicked
-backspace.addEventListener("click", backspaceButton);
-
-
-
-// TODO: add = (result) event listener
-// will prob need to convert back to numbers but who knows with js
-
-// This should get num2 but you'll need to test it
-// const operatorIndex = displayContent.search(/\p{MathSymbol}/);
-// console.log(operatorIndex);
-// num2 = displayContent.slice(operatorIndex + 1);
-// console.log(num2);
-
-
-// FUNCTIONS BELOW HERE
-
-
-// get values from display when called by = button
-function operate(num1, num2, operator) {
-    switch (operator) {
-        case "+":
-            add(num1, num2);
-            break;
-        case "\u2212":
-            subtract(num1, num2);
-            break;
-        case "\u00f7":
-            multiply(num1, num2);
-            break;
-        case "\u00d7":
-            divide(num1, num2);
-            break;
-    };
-};
-
-// operator functions
-function add(a, b) {
-    return a + b;
-};
-
-function subtract(a, b) {
-    return a - b;
-};
-
-function multiply(a, b) {
-    return a * b;
-};
-
-function divide(a, b) {
-    return a / b;
-}
-
-function clearButton() {
-        displayContent = 0;
-        operator = null;
-        display.textContent = 0;
-        num1 = null;
-        num2 = null;
-};
-
-function backspaceButton() {
-    // make sure you display 0 rather than empty box
-    if (displayContent.length === 1) {
-        displayContent = 0;
-        display.textContent = displayContent;
-        return;
-    }
-    const lastIndex = displayContent.length - 1;
-    // zero out relevant variables if you delete an operator
-    if (displayContent[lastIndex] === "+" || displayContent[lastIndex] === "\u2212" || displayContent[lastIndex] === "\u00f7" || displayContent[lastIndex] === "\u00d7") {
-        operator = null;
-        num1 = null;
-    }
-    // remove the last char
-    displayContent = displayContent.slice(0, lastIndex);
-    display.textContent = displayContent;
 };
