@@ -37,6 +37,11 @@ button:active {
     padding: 10%;
     max-height: 99vh;
     background-color: rgb(177, 177, 177);
+    transition: 2s ease;
+}
+
+.easterEgg {
+    transform: rotate(180deg);
 }
 
 #display {

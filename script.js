@@ -4,6 +4,7 @@ const inputButton = Array.from(document.querySelectorAll(".numButton, .operators
 const backspace = document.querySelector("#backspace");
 const clear = document.querySelector("#clear");
 const equals = document.querySelector("#equals");
+const calcFrame = document.querySelector("#calcFrame"); 
 
 // initialize global variables
 let displayContent = 0;
@@ -39,6 +40,7 @@ document.addEventListener("keydown", (e) => {
             break;
         case "Enter":
             getNum2();
+            // check you're not breaking math
             if ((num2 == 0 && operator === "\u00f7") || num2 === null) {
                 alert("Second operator must be a valid number");
                 break;
@@ -49,7 +51,7 @@ document.addEventListener("keydown", (e) => {
             }
         default:
             break;
-    };
+    }
     // filter anything that's not a number or operator
     if ((input >= 0 && input < 10) || input === "+" || input === "\u2212" || input === "\u00f7" || input === "\u00d7" || input === ".") {
         addDisplay(input);
@@ -207,5 +209,11 @@ function addDisplay(input) {
     else {
         displayContent += input;
         display.textContent = displayContent;
+        if (displayContent === "513800") {
+            calcFrame.className = "easterEgg";
+            for (let i = 0, length = inputButton.length; i < length; i++) {
+                inputButton[i].textContent = "nice";
+            }
+        };
     }
 };
