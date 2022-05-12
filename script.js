@@ -1,5 +1,3 @@
-// FIXME: weird things happen on subsequent operations
-
 // get elements
 const display = document.querySelector("#display");
 const inputButton = Array.from(document.querySelectorAll(".numButton, .operators"));
@@ -60,6 +58,7 @@ document.addEventListener("keydown", (e) => {
         return;
     };
 });
+
 
 // add number and operator event listeners
 for (let i = 0, length = inputButton.length; i < length; i++) {
@@ -193,9 +192,7 @@ function addDisplay(input) {
         // update display and relevant variables
         else {
             operator = input;
-            if (num1 === null) {
-                num1 = displayContent;
-            }
+            num1 = displayContent;
             displayContent += input;
             display.textContent += input;
             return;
