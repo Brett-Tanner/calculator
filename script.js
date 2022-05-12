@@ -209,7 +209,7 @@ function addDisplay(input) {
     else {
         displayContent += input;
         display.textContent = displayContent;
-        if (displayContent === "531800") {
+        if (displayContent === "5318008") {
             calcFrame.className = "easterEgg";
             for (let i = 0, length = inputButton.length; i < length; i++) {
                 inputButton[i].textContent = "nice";
